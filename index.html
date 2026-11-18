@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Tandra Times</title>
+  <meta name="description" content="Pradeepti Reddy Tandra, product engineer shipping AI tools for life sciences. Experience, projects, and contact.">
+
+  <!-- Fonts from Google Fonts: a bold headline font + a classic newspaper body font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== THE "PAINT BUCKETS": change these to restyle everything ===== */
+    :root {
+      --paper: #f4efe4;     /* old-newspaper cream */
+      --ink: #1a1a1a;       /* almost-black ink */
+      --faded: #5a5246;     /* faded grey-brown ink for small print */
+      --rule: #1a1a1a;      /* the lines between columns */
+      --accent: #8b1e1e;    /* deep red for links & buttons */
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--paper); color: var(--ink);
+      font-family: "Libre Baskerville", Georgia, serif;
+      font-size: 16px; line-height: 1.65;
+    }
+    a { color: var(--accent); }
+    .page { max-width: 1100px; margin: 0 auto; padding: 24px 16px 48px; }
+
+    /* ===== MASTHEAD (the big title at the top of a newspaper) ===== */
+    .topline {
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px 16px;
+      font-size: 12px; text-transform: uppercase; letter-spacing: .08em;
+      border-bottom: 1px solid var(--rule); padding-bottom: 6px;
+    }
+    .masthead {
+      font-family: "UnifrakturMaguntia", "Playfair Display", serif;
+      font-size: clamp(40px, 9vw, 96px); text-align: center; line-height: 1.1;
+      padding: 14px 0 8px;
+    }
+    .dateline {
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px 16px;
+      border-top: 3px double var(--rule); border-bottom: 3px double var(--rule);
+      padding: 6px 0; font-size: 13px; text-transform: uppercase; letter-spacing: .06em;
+    }
+
+    /* ===== SECTION MENU (like the index strip in a paper) ===== */
+    nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px 24px; padding: 10px 0; border-bottom: 1px solid var(--rule); }
+    nav a { color: var(--ink); text-decoration: none; font-size: 13px; text-transform: uppercase; letter-spacing: .1em; }
+    nav a:hover { color: var(--accent); }
+
+    /* ===== HEADLINES ===== */
+    .kicker { font-size: 12px; text-transform: uppercase; letter-spacing: .15em; color: var(--faded); }
+    h1, h2, h3 { font-family: "Playfair Display", serif; line-height: 1.15; }
+    .headline { font-size: clamp(34px, 6vw, 64px); font-weight: 900; text-align: center; margin: 24px 0 8px; }
+    .subhead { font-style: italic; text-align: center; font-size: clamp(17px, 2.4vw, 22px); color: var(--faded); margin-bottom: 24px; }
+    .section-title {
+      font-size: clamp(26px, 4vw, 38px); text-align: center; font-weight: 900;
+      border-top: 3px double var(--rule); border-bottom: 1px solid var(--rule);
+      padding: 10px 0; margin: 40px 0 24px;
+    }
+    h3 { font-size: 22px; margin-bottom: 2px; }
+
+    /* ===== FRONT PAGE GRID: photo + story + sidebar ===== */
+    .front { display: grid; grid-template-columns: 1.1fr 1.6fr 1fr; gap: 0; }
+    .front > * { padding: 0 20px; }
+    .front > * + * { border-left: 1px solid var(--rule); }
+    .front > :first-child { padding-left: 0; }
+    .front > :last-child { padding-right: 0; }
+
+    .photo {
+      aspect-ratio: 4 / 5; width: 100%; object-fit: cover;
+      filter: grayscale(100%) contrast(1.1);          /* makes any photo look like newsprint */
+      border: 1px solid var(--rule); background: #d9d2c3;
+      display: flex; align-items: center; justify-content: center; color: var(--faded); font-style: italic;
+    }
+    .caption { font-size: 13px; font-style: italic; color: var(--faded); margin-top: 6px; }
+
+    /* Drop cap: the giant first letter of a story */
+    .dropcap::first-letter {
+      float: left; font-family: "Playfair Display", serif; font-weight: 900;
+      font-size: 64px; line-height: .85; padding: 6px 8px 0 0;
+    }
+    .story p + p { margin-top: 12px; }
+
+    .box { border: 2px solid var(--rule); padding: 14px; margin-bottom: 18px; }
+    .box h4 { font-family: "Playfair Display", serif; font-size: 18px; text-transform: uppercase; letter-spacing: .05em; border-bottom: 1px solid var(--rule); margin-bottom: 8px; padding-bottom: 4px; }
+    .box p, .box li { font-size: 14px; }
+    .box ul { list-style: none; }
+    .box li + li { margin-top: 4px; }
+
+    .btn {
+      display: inline-block; font-family: "Playfair Display", serif; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .08em; font-size: 14px;
+      padding: 10px 16px; border: 2px solid var(--ink); background: var(--ink); color: var(--paper);
+      text-decoration: none; cursor: pointer;
+    }
+    .btn.outline { background: transparent; color: var(--ink); }
+    .btn:hover { background: var(--accent); border-color: var(--accent); color: var(--paper); }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+
+    /* ===== NEWS COLUMNS: each job / project is a little article ===== */
+    .columns { columns: 3 280px; column-gap: 40px; column-rule: 1px solid var(--rule); }
+    .article { break-inside: avoid; margin-bottom: 28px; }
+    .article .meta { font-size: 12px; text-transform: uppercase; letter-spacing: .1em; color: var(--faded); margin-bottom: 6px; }
+
+    /* Skills shown like stock-market listings */
+    .ticker { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); column-gap: 32px; border-top: 1px solid var(--rule); }
+    .ticker div { border-bottom: 1px dotted var(--faded); padding: 8px 4px; display: flex; justify-content: space-between; font-size: 14px; }
+    .ticker span:last-child { color: #2e6b2e; font-weight: 700; }
+
+    /* ===== CLASSIFIEDS (contact form) ===== */
+    .classifieds { display: grid; grid-template-columns: 1fr 1.4fr; gap: 32px; align-items: start; }
+    form { display: grid; gap: 14px; }
+    label { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; display: grid; gap: 4px; }
+    input, textarea {
+      font: inherit; font-size: 16px; text-transform: none; letter-spacing: normal;
+      padding: 10px; border: 1px solid var(--ink); background: #fbf8f1; color: var(--ink);
+    }
+    textarea { min-height: 130px; resize: vertical; }
+    #form-status { font-style: italic; }
+
+    footer { text-align: center; font-size: 12px; color: var(--faded); border-top: 3px double var(--rule); margin-top: 48px; padding-top: 12px; text-transform: uppercase; letter-spacing: .1em; }
+
+    /* ===== PHONES: stack everything into one column ===== */
+    @media (max-width: 820px) {
+      .front, .classifieds { grid-template-columns: 1fr; }
+      .front > * { padding: 0; border-left: none !important; }
+      .front > * + * { border-top: 1px solid var(--rule); padding-top: 20px; margin-top: 20px; }
+      .photo { max-width: 320px; margin: 0 auto; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ================= MASTHEAD ================= -->
+  <header>
+    <div class="topline">
+      <span>San Francisco, California</span>
+      <span>Open to New Roles</span>
+      <span>Price: One Interview</span>
+    </div>
+    <div class="masthead">The Tandra Times</div>
+    <div class="dateline">
+      <span>Vol. X · Est. in Life Sciences</span>
+      <span id="today"></span>
+      <span>Late Edition</span>
+    </div>
+    <nav>
+      <a href="#front">Front Page</a>
+      <a href="#career">Career</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Markets</a>
+      <a href="#classifieds">Classifieds</a>
+    </nav>
+  </header>
+
+  <!-- ================= FRONT PAGE: who you are ================= -->
+  <section id="front">
+    <h1 class="headline">Life Sciences Veteran Ships AI That Halves Review Time</h1>
+    <p class="subhead">“From clinical study reports to production AI tools, a decade of making complex science clear”</p>
+
+    <div class="front">
+      <!-- Left column: photo. Swap the box for:
+           <img class="photo" src="me.jpg" alt="Photo of Pradeepti Reddy Tandra"> -->
+      <figure>
+        <div class="photo" style="font-family:'Playfair Display',serif;font-style:normal;font-size:96px;font-weight:900;color:var(--ink)">PT</div>
+        <figcaption class="caption">Pradeepti Reddy Tandra, Product Engineer, photographed for this edition.</figcaption>
+      </figure>
+
+      <!-- Middle column: the main story = your "About" -->
+      <article class="story">
+        <p class="kicker">Exclusive Report · San Francisco</p>
+        <p class="dropcap">Pradeepti Reddy Tandra is a product engineer with more than ten years in life sciences, a career that began writing clinical study reports and plain language summaries and now includes shipping AI tools to production.</p>
+        <p>Tandra's AI-assisted document review is used by 300+ life sciences professionals and has cut review cycles by roughly half. Tandra runs discovery with clinical and regulatory users, prototypes quickly with AI coding tools like Claude Code and Cursor, and carries the work all the way through to release.</p>
+        <p>Sources say Tandra is now seeking a next role, building AI products where science, regulation, and great software meet.</p>
+        <div class="btn-row">
+          <a class="btn" href="#classifieds">Contact</a>
+        </div>
+      </article>
+
+      <!-- Right column: quick facts sidebar -->
+      <aside>
+        <div class="box">
+          <h4>At a Glance</h4>
+          <ul>
+            <li><strong>Role:</strong> Product / AI Software Engineer</li>
+            <li><strong>Based in:</strong> San Francisco, CA</li>
+            <li><strong>Experience:</strong> 10+ years, life sciences</li>
+            <li><strong>Education:</strong> M.S. Computer Science &amp; M.S. Regulatory Affairs, Northeastern University</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h4>By the Numbers</h4>
+          <ul>
+            <li><strong>~50%</strong> faster review cycles</li>
+            <li><strong>300+</strong> users on shipped AI tools</li>
+            <li><strong>100+</strong> clinical studies supported</li>
+            <li><strong>1M+</strong> documents processed</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h4>Career Forecast</h4>
+          <p>Bright, with a strong chance of shipped features and scattered plain-language summaries.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ================= CAREER: each job is a news article ================= -->
+  <section id="career">
+    <h2 class="section-title">Career Dispatches</h2>
+    <div class="columns">
+      <article class="article">
+        <h3>ClaritiDox</h3>
+        <p class="meta">Software Engineer · Sept 2022 – Present</p>
+        <p>After discovery sessions with clinical and regulatory teams, Tandra shipped AI-assisted document review to more than 300 users, cutting review cycles by about half. The system uses LLM (large language model) workflows with schema-checked outputs and keeps a human in the loop for every approval.</p>
+      </article>
+      <article class="article">
+        <h3>Tracking Overhaul</h3>
+        <p class="meta">ClaritiDox · Automation</p>
+        <p>Study teams across 100+ clinical studies needed better tracking. Tandra built automated workflows that reduced manual effort ~40% and cut information-request turnaround by 25–40%.</p>
+      </article>
+      <article class="article">
+        <h3>Keeping AI Honest</h3>
+        <p class="meta">ClaritiDox · LLM Evaluation</p>
+        <p>Tandra built evaluation and regression tests from human-reviewed examples, which catch malformed outputs and field-level errors before release. Tandra also designed the LLM workflows to combine retrieval, schema-constrained outputs, and fixed rules, and to send uncertain results to a person rather than guess.</p>
+      </article>
+      <article class="article">
+        <h3>Systems United</h3>
+        <p class="meta">ClaritiDox · Integrations &amp; Infrastructure</p>
+        <p>Python and TypeScript integrations now connect Veeva Vault, Salesforce, and Ironclad, with secure OAuth/JWT sign-in, rate limits, and retries. Event-driven pipelines have processed 1M+ documents and bulk runs of 100K+ records, with an auditable record of every step. Releases ship in Docker containers through CI/CD (continuous integration and delivery).</p>
+      </article>
+      <article class="article">
+        <h3>Gilead Sciences · BeiGene</h3>
+        <p class="meta">Senior Manager, Medical Writing · 2016 – 2022</p>
+        <p>Before writing code, Tandra translated regulatory workflows into software requirements, metadata specifications, validation rules, and acceptance tests for enterprise content systems, then saw them through production rollout with engineering and IT.</p>
+      </article>
+      <article class="article">
+        <h3>BMS · Biogen · Takeda</h3>
+        <p class="meta">Clinical Trial Systems · Earlier</p>
+        <p>Defined structured-data mappings and XML validation checks for ClinicalTrials.gov and EudraCT (the EU clinical trials database) submissions.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ================= PROJECTS ================= -->
+  <section id="projects">
+    <h2 class="section-title">Special Features</h2>
+    <div class="columns">
+      <article class="article">
+        <h3>ctgov-sync</h3>
+        <p class="meta">TypeScript · Node.js · REST API</p>
+        <p>Keeps a local copy of ClinicalTrials.gov studies up to date and serves it through a REST API. It fetches only what changed, retries with backoff, sends bad records to a review queue, and never creates duplicates on reruns. Backed by 31 automated tests.</p>
+        <a href="https://github.com/pradeeptireddy/ctgov-sync" target="_blank" rel="noopener">View on GitHub →</a>
+      </article>
+      <article class="article">
+        <h3>CliniFind</h3>
+        <p class="meta">React Native · TypeScript · REST APIs</p>
+        <p>A clinical trial search app on the ClinicalTrials.gov API, with filters and paginated results, used by classmates.</p>
+      </article>
+      <article class="article">
+        <h3>Trial Results Extractor</h3>
+        <p class="meta">Python</p>
+        <p>Turns US and EU clinical trial results into structured, review-ready tables.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ================= SKILLS: shown like stock listings ================= -->
+  <section id="skills">
+    <h2 class="section-title">Skills Market Report</h2>
+    <div class="ticker">
+      <div><span>PYTHON</span><span>▲ Expert</span></div>
+      <div><span>TYPESCRIPT</span><span>▲ Expert</span></div>
+      <div><span>REACT / REACT NATIVE</span><span>▲ Strong</span></div>
+      <div><span>LANGGRAPH / LANGCHAIN</span><span>▲ Strong</span></div>
+      <div><span>RAG &amp; VECTOR DBs</span><span>▲ Strong</span></div>
+      <div><span>LLM EVALUATION</span><span>▲ Strong</span></div>
+      <div><span>NODE.JS</span><span>▲ Strong</span></div>
+      <div><span>SQL / POSTGRESQL</span><span>▲ Strong</span></div>
+      <div><span>AWS · GCP</span><span>▲ Strong</span></div>
+      <div><span>DOCKER · CI/CD</span><span>▲ Strong</span></div>
+      <div><span>VEEVA · SALESFORCE · IRONCLAD</span><span>▲ Strong</span></div>
+      <div><span>OAUTH / JWT · GRAPHQL</span><span>▲ Strong</span></div>
+      <div><span>CLAUDE CODE · CURSOR</span><span>▲ Rising</span></div>
+      <div><span>MEDICAL WRITING</span><span>▲ Expert</span></div>
+      <div><span>REGULATORY AFFAIRS</span><span>▲ Expert</span></div>
+    </div>
+  </section>
+
+  <!-- ================= CLASSIFIEDS: how employers contact you ================= -->
+  <section id="classifieds">
+    <h2 class="section-title">Classifieds</h2>
+    <div class="classifieds">
+      <div class="box">
+        <h4>Help Wanted?</h4>
+        <p>Hiring for an AI or product engineer who speaks both science and software? Place your ad here, and I'll reply within one business day.</p>
+        <div class="btn-row">
+          <a class="btn outline" href="mailto:pradeeptireddy@gmail.com">Email</a>
+          <a class="btn outline" href="https://www.linkedin.com/in/pradeeptireddy" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn outline" href="https://github.com/pradeeptireddy" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+
+      <!-- Messages are delivered by Formspree (free "mailbox" service).
+           Replace YOUR_FORM_ID with the ID Formspree gives you. -->
+      <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <label>Your name <input type="text" name="name" required></label>
+        <label>Your email <input type="email" name="email" required></label>
+        <label>Company <input type="text" name="company"></label>
+        <label>Your message <textarea name="message" required placeholder="Tell me about the role…"></textarea></label>
+        <button class="btn" type="submit">Submit to the Editor</button>
+        <p id="form-status" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+  <footer>© <span id="year"></span> Pradeepti Reddy Tandra · All the news that's fit to hire</footer>
+</div>
+
+<script>
+  // Show today's date in the newspaper dateline, e.g. "Wednesday, November 18, 2026"
+  const now = new Date();
+  document.getElementById("today").textContent = now.toLocaleDateString("en-US",
+    { weekday: "long", year: "numeric", month: "long", day: "numeric" });
+  document.getElementById("year").textContent = now.getFullYear();
+
+  // Send the contact form without leaving the page
+  const form = document.getElementById("contact-form");
+  const status = document.getElementById("form-status");
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();                          // don't reload the page
+    if (form.action.includes("YOUR_FORM_ID")) {      // Formspree not set up yet: open the visitor's email app instead
+      const d = new FormData(form);
+      const body = `${d.get("message")}\n\n— ${d.get("name")}, ${d.get("company") || ""} (${d.get("email")})`;
+      window.location.href = "mailto:pradeeptireddy@gmail.com?subject=" +
+        encodeURIComponent("Opportunity from " + d.get("name")) + "&body=" + encodeURIComponent(body);
+      status.textContent = "Opening your email app…";
+      return;
+    }
+    status.textContent = "Sending to the press…";
+    try {
+      const response = await fetch(form.action, {     // fetch = send it over the internet
+        method: "POST",
+        body: new FormData(form),                    // FormData = bundle everything typed in
+        headers: { Accept: "application/json" }
+      });
+      status.textContent = response.ok
+        ? "Received! Your message will run in tomorrow's edition (I'll reply soon)."
+        : "Something went wrong. Please email me instead.";
+      if (response.ok) form.reset();                 // clear the boxes
+    } catch {
+      status.textContent = "Couldn't send. Please email me instead.";
+    }
+  });
+</script>
+</body>
+</html>
