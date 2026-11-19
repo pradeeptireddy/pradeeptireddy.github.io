@@ -44,7 +44,7 @@
     header { position: sticky; top: 0; background: color-mix(in srgb, var(--bg) 90%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); z-index: 10; }
     header .wrap { display: flex; justify-content: space-between; align-items: center; height: 60px; gap: 16px; }
     .logo { font-weight: 700; color: var(--text); }
-    nav { display: flex; gap: 22px; overflow-x: auto; }
+    nav { display: flex; gap: 22px; overflow-x: auto; margin-left: auto; margin-right: 8px; }
     nav a { color: var(--muted); font-size: 15px; white-space: nowrap; }
     nav a:hover { color: var(--text); text-decoration: none; }
 
@@ -108,6 +108,14 @@
     textarea { min-height: 130px; resize: vertical; }
     #form-status { font-size: 15px; color: var(--muted); }
 
+    /* ===== TECHNICAL / PLAIN LANGUAGE SWITCH ===== */
+    .plain { display: none; }
+    body.plain-mode .plain { display: inline; }
+    body.plain-mode .tech { display: none; }
+    .switch { display: inline-flex; background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 3px; gap: 2px; }
+    .switch button { font: inherit; font-size: 13px; font-weight: 600; border: 0; background: transparent; color: var(--muted); padding: 6px 12px; border-radius: 999px; cursor: pointer; white-space: nowrap; }
+    .switch button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+    .switch-hint { font-size: 13px; color: var(--muted); margin-top: 10px; }
     footer { border-top: 1px solid var(--border); padding: 28px 0; font-size: 14px; color: var(--muted); }
 
     /* ===== PHONES: stack into one column ===== */
@@ -115,6 +123,7 @@
       nav { display: none; }
       section { padding: 52px 0; }
       .stats { grid-template-columns: repeat(2, 1fr); }
+      .logo { display: none; }
       .job, .skill-group, .contact { grid-template-columns: 1fr; gap: 8px; }
       .contact { gap: 28px; }
     }
@@ -132,6 +141,10 @@
         <a href="#skills">Skills</a>
         <a href="#contact">Contact</a>
       </nav>
+      <div class="switch" role="group" aria-label="Reading level">
+        <button type="button" data-mode="tech" aria-pressed="true">Technical</button>
+        <button type="button" data-mode="plain" aria-pressed="false">Plain language</button>
+      </div>
     </div>
   </header>
 
@@ -141,7 +154,8 @@
     <section>
       <p class="eyebrow">Medical Writer &amp; Product Engineer · San Francisco</p>
       <h1>Pradeepti Reddy Tandra</h1>
-      <p class="lead">I've spent over ten years in life sciences, writing clinical study reports and plain language summaries, and now I build the AI tools that help clinical and regulatory teams do that work faster.</p>
+      <p class="lead"><span class="tech">I've spent over ten years in life sciences, writing clinical study reports and plain language summaries, and now I build the AI tools that help clinical and regulatory teams do that work faster.</span><span class="plain">For ten years I wrote the documents that explain clinical trials to regulators and patients. Now I build software that helps teams write and check those documents faster.</span></p>
+      <p class="switch-hint">↑ Try the switch at the top: every section can be read in technical or plain language.</p>
       <div class="btn-row">
         <a class="btn" href="#contact">Get in touch</a>
         <a class="btn ghost" href="https://www.linkedin.com/in/pradeeptireddy" target="_blank" rel="noopener">LinkedIn</a>
@@ -166,11 +180,11 @@
           <h3>Software Engineer</h3>
           <p class="where">ClaritiDox · SaaS for biopharma</p>
           <ul>
-            <li>Shipped AI-assisted document review to 300+ users, cutting review cycles ~50%, by running discovery with clinical and regulatory teams, prototyping LLM (large language model) workflows, and releasing through user acceptance testing.</li>
-            <li>Built automated tracking workflows across 100+ clinical studies, cutting manual effort 40% and information-request turnaround 25–40%.</li>
-            <li>Built Python and TypeScript integrations with Veeva Vault, Salesforce, and Ironclad, handling OAuth/JWT authentication, rate limits, retries, and metadata mapping.</li>
-            <li>Built event-driven pipelines processing 1M+ documents and bulk runs of 100K+ records, with an auditable state for every record.</li>
-            <li>Designed LLM workflows with retrieval, schema-constrained outputs, and human approval for uncertain results, backed by evaluation and regression tests.</li>
+            <li><span class="tech">Shipped AI-assisted document review to 300+ users, cutting review cycles ~50%, by running discovery with clinical and regulatory teams, prototyping LLM (large language model) workflows, and releasing through user acceptance testing.</span><span class="plain">Built an AI helper that reviews documents. Over 300 people use it, and it cut review time roughly in half.</span></li>
+            <li><span class="tech">Built automated tracking workflows across 100+ clinical studies, cutting manual effort 40% and information-request turnaround 25–40%.</span><span class="plain">Made paperwork tracking automatic for 100+ clinical studies, so teams spend 40% less time on it and get answers 25–40% faster.</span></li>
+            <li><span class="tech">Built Python and TypeScript integrations with Veeva Vault, Salesforce, and Ironclad, handling OAuth/JWT authentication, rate limits, retries, and metadata mapping.</span><span class="plain">Connected the different software systems drug companies use, so information moves between them on its own, safely.</span></li>
+            <li><span class="tech">Built event-driven pipelines processing 1M+ documents and bulk runs of 100K+ records, with an auditable state for every record.</span><span class="plain">Built systems that have moved over a million documents, keeping a record of every step so nothing gets lost.</span></li>
+            <li><span class="tech">Designed LLM workflows with retrieval, schema-constrained outputs, and human approval for uncertain results, backed by evaluation and regression tests.</span><span class="plain">Designed the AI to ask a person whenever it isn't sure, and built tests that catch its mistakes before users ever see them.</span></li>
           </ul>
         </div>
       </div>
@@ -181,7 +195,7 @@
           <h3>Medical Writing – Clinical Trial Disclosure</h3>
           <p class="where">Gilead Sciences · BeiGene</p>
           <ul>
-            <li>Translated regulatory workflows into software requirements, metadata specifications, validation rules, and acceptance tests for enterprise content systems, and worked with engineering and IT through production rollout.</li>
+            <li><span class="tech">Translated regulatory workflows into software requirements, metadata specifications, validation rules, and acceptance tests for enterprise content systems, and worked with engineering and IT through production rollout.</span><span class="plain">Wrote and published clinical trial results for regulators and the public, and told software teams exactly what their tools needed to do.</span></li>
           </ul>
         </div>
       </div>
@@ -192,7 +206,7 @@
           <h3>Clinical Trial Systems</h3>
           <p class="where">Bristol Myers Squibb · Biogen · Takeda</p>
           <ul>
-            <li>Defined structured-data mappings and XML validation checks for ClinicalTrials.gov and EudraCT (the EU clinical trials database) submissions.</li>
+            <li><span class="tech">Defined structured-data mappings and XML validation checks for ClinicalTrials.gov and EudraCT (the EU clinical trials database) submissions.</span><span class="plain">Made sure trial information was formatted correctly before it went to the public trial registries in the US and Europe.</span></li>
           </ul>
         </div>
       </div>
@@ -214,18 +228,18 @@
       <div class="cards">
         <div class="card">
           <h3>ctgov-sync</h3>
-          <p>Keeps a local copy of ClinicalTrials.gov studies up to date and serves it through a REST API. Fetches only what changed, retries with backoff, sends bad records to a review queue, and never duplicates on reruns. 31 automated tests.</p>
+          <p><span class="tech">Keeps a local copy of ClinicalTrials.gov studies up to date and serves it through a REST API. Fetches only what changed, retries with backoff, sends bad records to a review queue, and never duplicates on reruns. 31 automated tests.</span><span class="plain">Keeps a copy of the public clinical trials database fresh by downloading only what changed. 31 automatic tests double-check that it works.</span></p>
           <div class="chips"><span class="chip">TypeScript</span><span class="chip">Node.js</span><span class="chip">REST API</span></div>
           <a href="https://github.com/pradeeptireddy/ctgov-sync" target="_blank" rel="noopener">View on GitHub →</a>
         </div>
         <div class="card">
           <h3>CliniFind</h3>
-          <p>A clinical trial search app on the ClinicalTrials.gov API, with filters and paginated results. Used by classmates.</p>
+          <p><span class="tech">A clinical trial search app on the ClinicalTrials.gov API, with filters and paginated results. Used by classmates.</span><span class="plain">A phone app that helps people search for clinical trials. My classmates used it.</span></p>
           <div class="chips"><span class="chip">React Native</span><span class="chip">TypeScript</span><span class="chip">REST APIs</span></div>
         </div>
         <div class="card">
           <h3>Trial Results Extraction Tool</h3>
-          <p>Turns US and EU clinical trial results into structured, review-ready tables in a set format.</p>
+          <p><span class="tech">Turns US and EU clinical trial results into structured, review-ready tables in a set format.</span><span class="plain">Turns messy trial results from the US and Europe into tidy tables that are ready to review.</span></p>
           <div class="chips"><span class="chip">Python</span></div>
         </div>
       </div>
@@ -317,6 +331,16 @@
     } catch {
       status.textContent = "Couldn't send. Please email me instead.";
     }
+  });
+
+  // Technical / Plain language switch: adds or removes the "plain-mode" label on the page
+  document.querySelectorAll(".switch button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const plain = btn.dataset.mode === "plain";
+      document.body.classList.toggle("plain-mode", plain);
+      document.querySelectorAll(".switch button").forEach(b =>
+        b.setAttribute("aria-pressed", String(b === btn)));
+    });
   });
 </script>
 </body>
