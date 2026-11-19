@@ -9,7 +9,7 @@
   <!-- Font from Google Fonts: "Inter", a clean, very readable modern font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Caveat:wght@600&display=swap" rel="stylesheet">
 
   <style>
     /* ===== COLOR "PAINT BUCKETS": change these to restyle everything ===== */
@@ -33,6 +33,8 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
+      background-image: radial-gradient(var(--border) 1px, transparent 1px);
+      background-size: 22px 22px;
       font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
       background: var(--bg); color: var(--text); line-height: 1.6; font-size: 17px;
     }
@@ -51,8 +53,20 @@
     /* ===== SECTIONS ===== */
     section { padding: 72px 0; }
     section + section { border-top: 1px solid var(--border); }
-    h1 { font-size: clamp(36px, 6vw, 54px); line-height: 1.1; letter-spacing: -0.02em; }
-    h2 { font-size: 28px; letter-spacing: -0.01em; margin-bottom: 28px; }
+    h1, h2, .stat b { font-family: "Fraunces", Georgia, serif; font-weight: 700; }
+    h1 { font-size: clamp(40px, 7vw, 64px); line-height: 1.05; letter-spacing: -0.02em; }
+    /* Hand-drawn squiggle under the name */
+    .squiggle { position: relative; display: inline-block; }
+    .squiggle svg { position: absolute; left: 0; bottom: -10px; width: 100%; height: 14px; color: var(--accent); }
+    h2 { font-size: 32px; letter-spacing: -0.01em; margin-bottom: 28px; }
+    /* Number the sections 01, 02, 03… like a clinical document */
+    main { counter-reset: sec; }
+    section h2 { counter-increment: sec; }
+    section h2::before { content: counter(sec, decimal-leading-zero); display: block; font-family: "Inter", sans-serif; font-size: 13px; font-weight: 600; color: var(--accent); letter-spacing: .12em; margin-bottom: 4px; }
+    /* Highlighter-pen effect */
+    mark { background: linear-gradient(transparent 55%, var(--accent-soft) 55%); color: inherit; padding: 0 2px; }
+    .hand { font-family: "Caveat", cursive; font-size: 24px; color: var(--accent); line-height: 1.2; }
+    ::selection { background: var(--accent); color: #fff; }
     h3 { font-size: 18px; }
     .eyebrow { color: var(--accent); font-weight: 600; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 12px; }
     .lead { font-size: 20px; color: var(--muted); max-width: 640px; margin-top: 18px; }
@@ -71,8 +85,8 @@
 
     /* ===== IMPACT NUMBERS ===== */
     .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 48px; }
-    .stat { background: var(--surface); border-radius: 14px; padding: 18px; }
-    .stat b { display: block; font-size: 28px; color: var(--accent); letter-spacing: -0.02em; }
+    .stat { background: var(--surface); border: 1.5px solid var(--text); border-radius: 12px; padding: 18px; box-shadow: 4px 4px 0 var(--accent); }
+    .stat b { display: block; font-size: 32px; color: var(--accent); letter-spacing: -0.02em; }
     .stat span { font-size: 14px; color: var(--muted); }
 
     /* ===== EXPERIENCE TIMELINE ===== */
@@ -85,7 +99,8 @@
 
     /* ===== PROJECT CARDS ===== */
     .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 22px; display: flex; flex-direction: column; gap: 10px; }
+    .card { background: var(--surface); border: 1.5px solid var(--text); border-radius: 12px; padding: 22px; display: flex; flex-direction: column; gap: 10px; box-shadow: 4px 4px 0 var(--accent); transition: transform .15s, box-shadow .15s; }
+    .card:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--accent); }
     .card p { font-size: 15px; color: var(--muted); flex: 1; }
     .chips { display: flex; flex-wrap: wrap; gap: 6px; }
     .chip { font-size: 13px; background: var(--accent-soft); color: var(--accent); padding: 3px 10px; border-radius: 999px; font-weight: 500; }
@@ -116,7 +131,9 @@
     .switch button { font: inherit; font-size: 13px; font-weight: 600; border: 0; background: transparent; color: var(--muted); padding: 6px 12px; border-radius: 999px; cursor: pointer; white-space: nowrap; }
     .switch button[aria-pressed="true"] { background: var(--accent); color: #fff; }
     .switch-hint { font-size: 13px; color: var(--muted); margin-top: 10px; }
-    footer { border-top: 1px solid var(--border); padding: 28px 0; font-size: 14px; color: var(--muted); }
+    footer { border-top: 1px solid var(--border); padding: 28px 0; font-size: 14px; color: var(--muted); background: var(--bg); }
+    .footer-row { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .signature { font-size: 36px; transform: rotate(-4deg); }
 
     /* ===== PHONES: stack into one column ===== */
     @media (max-width: 720px) {
@@ -153,9 +170,9 @@
     <!-- ================= INTRO ================= -->
     <section>
       <p class="eyebrow">Medical Writer &amp; Product Engineer · San Francisco</p>
-      <h1>Pradeepti Reddy Tandra</h1>
-      <p class="lead"><span class="tech">I've spent over ten years in life sciences, writing clinical study reports and plain language summaries, and now I build the AI tools that help clinical and regulatory teams do that work faster.</span><span class="plain">For ten years I wrote the documents that explain clinical trials to regulators and patients. Now I build software that helps teams write and check those documents faster.</span></p>
-      <p class="switch-hint">↑ Try the switch at the top: every section can be read in technical or plain language.</p>
+      <h1>Pradeepti Reddy <span class="squiggle">Tandra<svg viewBox="0 0 200 14" preserveAspectRatio="none" aria-hidden="true"><path d="M2 9 Q 20 2, 40 8 T 80 8 T 120 8 T 160 8 T 198 6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span></h1>
+      <p class="lead"><span class="tech">I've spent over ten years in life sciences, writing clinical study reports and <mark>plain language summaries</mark>, and now I build the AI tools that help clinical and regulatory teams do that work faster.</span><span class="plain">For ten years I wrote the documents that explain clinical trials to <mark>regulators and patients</mark>. Now I build software that helps teams write and check those documents faster.</span></p>
+      <p class="switch-hint"><span class="hand">↑ try the switch up top!</span><br>Every section can be read in technical or plain language.</p>
       <div class="btn-row">
         <a class="btn" href="#contact">Get in touch</a>
         <a class="btn ghost" href="https://www.linkedin.com/in/pradeeptireddy" target="_blank" rel="noopener">LinkedIn</a>
@@ -297,7 +314,14 @@
   </main>
 
   <footer>
-    <div class="wrap">© <span id="year"></span> Pradeepti Reddy Tandra</div>
+    <div class="wrap footer-row">
+      <div>
+        <p>Designed &amp; built by me with HTML, CSS, a little JavaScript, and a lot of plain language.
+           <a href="https://github.com/pradeeptireddy/pradeeptireddy.github.io" target="_blank" rel="noopener">See the code →</a></p>
+        <p>© <span id="year"></span> Pradeepti Reddy Tandra</p>
+      </div>
+      <span class="hand signature">Pradeepti</span>
+    </div>
   </footer>
 
 <script>
