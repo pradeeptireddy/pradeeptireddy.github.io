@@ -105,13 +105,13 @@
     .card { background: var(--surface); border: 1.5px solid var(--text); border-radius: 12px; padding: 22px; display: flex; flex-direction: column; gap: 10px; box-shadow: 4px 4px 0 var(--accent); transition: transform .15s, box-shadow .15s; }
     .card:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--accent); }
     .card p { font-size: 15px; color: var(--muted); flex: 1; }
-    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: flex-start; align-content: flex-start; }
     .chip { font-size: 13px; background: var(--accent-soft); color: var(--accent); padding: 3px 10px; border-radius: 999px; font-weight: 500; }
 
     /* ===== SKILLS ===== */
-    .skill-group { display: grid; grid-template-columns: 170px 1fr; gap: 24px; padding: 14px 0; }
+    .skill-group { display: grid; grid-template-columns: 190px 1fr; gap: 24px; padding: 14px 0; align-items: start; }
     .skill-group + .skill-group { border-top: 1px solid var(--border); }
-    .skill-group h3 { font-size: 15px; color: var(--muted); font-weight: 600; }
+    .skill-group h3 { font-size: 15px; color: var(--muted); font-weight: 600; display: flex; align-items: baseline; }
     .skill-group .chip { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
 
     /* ===== CONTACT ===== */
@@ -147,7 +147,7 @@
     .card .chip { background: var(--c-soft); color: var(--c); }
     .card a { color: var(--c); font-weight: 600; }
     section h2::before { color: var(--c) !important; }
-    .skill-group h3::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--c); margin-right: 8px; }
+    .skill-group h3::before { content: ""; flex: none; width: 10px; height: 10px; border-radius: 50%; background: var(--c); margin-right: 8px; }
     .signature { color: var(--coral) !important; }
     .eyebrow { color: var(--violet) !important; }
     footer { border-top: 1px solid var(--border); padding: 28px 0; font-size: 14px; color: var(--muted); background: var(--bg); }
